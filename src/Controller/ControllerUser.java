@@ -4,6 +4,8 @@ import Service.CrudUser;
 import Model.User;
 import Service.CrudUserImpl;
 
+import java.io.IOException;
+
 public class ControllerUser {
     private final String url;
     private final String headers;
@@ -19,6 +21,14 @@ public class ControllerUser {
         this.body = body;
         this.id = 0; // Inicialización del id
         this.user = new CrudUserImpl(); // Inicialización del CRUD de usuarios
+        switch (method){
+            case "POST":
+                PostUser(body);
+                break;
+            case "printUsers":
+                GetUsers();
+                break;
+        }
     }
 
     public ControllerUser(String method, String url, String headers, String body, int id) {
@@ -27,6 +37,23 @@ public class ControllerUser {
         this.body = body;
         this.id = id;
         this.user = new CrudUserImpl(); // Inicialización del CRUD de usuarios
+        switch (method){
+            case "POST":
+                System.out.println(PostUser(body));
+                break;
+            case "PUT":
+                PutUserId(body,id);
+                break;
+            case "DELETE":
+                DeleteUserById(id);
+                break;
+            case "GET":
+                GetUsersById(id);
+                break;
+            case "printUsers":
+                GetUsers();
+                break;
+        }
     }
 
     public String GetUsers() {
@@ -43,18 +70,22 @@ public class ControllerUser {
 
     public String PostUser(String body) {
         // Lógica para crear un nuevo usuario en el servidor
-        user.create(body);
-        return null;
+        String s=user.create(body);
+        return s;
     }
 
     public void DeleteUserById(int id) {
         // Lógica para eliminar un usuario por su id en el servidor
         user.deleteById(id);
+        String s="Se ha eliminado el usuario con éxito y sus datos son: \nID: "+ body.split(",")[0] + " Nombres: "+body.split(",")[1]+" Email: "+body.split(",")[2]+" Teléfono: "+ body.split(",")[3];
+        System.out.println(s);
     }
 
     public void PutUserId(String body, int id) {
         // Lógica para actualizar un usuario por su id en el servidor
         user.updateById(body,id);
+        String s="Se ha actualizado el usuario con éxito y sus datos son: \nID: "+ body.split(",")[0] + " Nombres: "+body.split(",")[1]+" Email: "+body.split(",")[2]+" Teléfono: "+ body.split(",")[3];
+        System.out.println(s);
     }
 
     @Override
@@ -63,8 +94,6 @@ public class ControllerUser {
                 "url='" + url + '\'' +
                 ", headers='" + headers + '\'' +
                 ", body='" + body + '\'' +
-                ", id=" + id +
-                ", user=" + user +
-                '}';
+                "}\n---------------------------";
     }
 }
