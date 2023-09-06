@@ -1,20 +1,23 @@
 package Service;
+import Model.User;
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
-import Model.User;
+
 public class CrudUserImpl implements CrudUser {
     private List<User> users;
     private User user;
 
     public CrudUserImpl() {
+        users = new ArrayList<>();
+        user = new User(0, "", "", ""); // Inicialización de usuario
     }
 
     @Override
     public String create(String body) {
-        // Implementa la lógica para crear un usuario a partir de la cadena "body"
-        // Incrementa el ID automáticamente
-        // Agrega el usuario a la lista
-        return "Usuario creado correctamente";
+        users.add(new User(Integer.parseInt(body.split(",")[0]),body.split(",")[1],body.split(",")[2],body.split(",")[3]));
+        return body;
     }
 
     @Override
@@ -24,22 +27,42 @@ public class CrudUserImpl implements CrudUser {
 
     @Override
     public void updateById(String body, int id) {
-        // Implementa la lógica para actualizar un usuario por ID a partir de la cadena "body"
+        for (int i = 0; i < users.stream().count(); i++) {
+            if (users.get(i).getId()==id){
+                users.set(i,new User(Integer.parseInt(body.split(",")[0]),body.split(",")[1],body.split(",")[2],body.split(",")[3]));
+            }
+        }
     }
 
     @Override
     public void deleteById(int id) {
-        // Implementa la lógica para eliminar un usuario por ID
+        for (int i = 0; i < users.stream().count(); i++) {
+            if (users.get(i).getId()==id){
+                users.remove(i);
+            }
+        }
     }
 
     @Override
-    public List<User> findAll() {
-        return users;
+    public void findAll() {
+        // create a new Gson instance
+        Gson gson = new Gson();
+        // convert your list to json
+        String jsonList = gson.toJson(users);
+        // print your generated json
+        System.out.println("Lista de usuarios: " + jsonList);
     }
 
     @Override
-    public User findById(int id) {
-        // Implementa la lógica para encontrar un usuario por ID
-        return null;
+    public void findById(int id) {
+        for (int i = 0; i < users.stream().count(); i++) {
+            if (users.get(i).getId()==id){
+                Gson gson = new Gson();
+                // convert your list to json
+                String jsonList = gson.toJson(users.get(i));
+                // print your generated json
+                System.out.println("Lista de usuarios: " + jsonList);
+            }
+        }
     }
 }
