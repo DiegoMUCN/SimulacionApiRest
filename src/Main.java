@@ -2,49 +2,52 @@ import Controller.ControllerUser;
 
 import java.util.Scanner;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+//https://www.adictosaltrabajo.com/2012/09/17/gson-java-json/
+//https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+//https://www.lawebdelprogramador.com/foros/Java/826495-Obtener-ruta-de-ejecucion.html
 public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        String url="";
+        String headers="";
+        String nombres="";
+        String email="";
+        String telefono="";
+        int id=0;
         ControllerUser controller = null;
 
         while (true) {
-            System.out.println("Menú de opciones:");
-            System.out.println("1. Crear ControllerUser con parámetros (constructor 1)");
-            System.out.println("2. Crear ControllerUser con parámetros (constructor 2)");
-            System.out.println("3. Salir");
+            System.out.println("Menú de peticiones:");
+            System.out.println("1. POST   4. GET ");
+            System.out.println("2. PUT    5. GETALL");
+            System.out.println("3. DELETE 6. Salir");
             System.out.print("Seleccione una opción: ");
 
-            int choice = scanner.nextInt();
+            int selection = scanner.nextInt();
 
-            switch (choice) {
+            switch (selection) {
                 case 1:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
-                    System.out.print("Método: ");
-                    String method = scanner.nextLine();
-                    System.out.print("URL: http://localhost:8080/api/users");
-                    String url = "http://localhost:8080/api/users";
-                    System.out.print("Headers: Content-Type: application/json");
-                    String headers = "Content-Type: application/json";
+                    System.out.println("URL: http://localhost:8080/api/users");
+                    url = "http://localhost:8080/api/users";
+                    System.out.println("Headers: Content-Type: application/json");
+                    headers = "Content-Type: application/json";
                     System.out.print("Body: Nombres: ");
-                    String nombres = scanner.nextLine();
+                    nombres = scanner.nextLine();
                     System.out.print("Body: Email: ");
-                    String email = scanner.nextLine();
+                    email = scanner.nextLine();
                     System.out.print("Body: Teléfono: ");
-                    String telefono = scanner.nextLine();
-                    controller = new ControllerUser(method, url, headers, nombres+","+email+","+telefono);
+                    telefono = scanner.nextLine();
+                    controller = new ControllerUser("POST", url, headers, nombres+","+email+","+telefono);
                     System.out.println("--------------------------");
                     System.out.println(controller.toString());
                     break;
                 case 2:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
-                    System.out.print("Método: ");
-                    method = scanner.nextLine();
-                    System.out.print("URL: http://localhost:8080/api/users");
+                    System.out.println("URL: http://localhost:8080/api/users");
                     url = "http://localhost:8080/api/users";
-                    System.out.print("Headers: Content-Type: application/json");
+                    System.out.println("Headers: Content-Type: application/json");
                     headers = "Content-Type: application/json";
                     System.out.print("Body: Nombres :");
                     nombres = scanner.nextLine();
@@ -53,12 +56,46 @@ public class Main {
                     System.out.print("Body: Teléfono: ");
                     telefono = scanner.nextLine();
                     System.out.print("ID: ");
-                    int id = scanner.nextInt();
-                    controller = new ControllerUser(method, url, headers, nombres+","+email+","+telefono, id);
+                    id = scanner.nextInt();
+                    controller = new ControllerUser("PUT", url, headers, nombres+","+email+","+telefono, id);
                     System.out.println("--------------------------");
                     System.out.println(controller.toString());
                     break;
                 case 3:
+                    scanner.nextLine(); // Consumir la nueva línea pendiente
+                    System.out.println("URL: http://localhost:8080/api/users");
+                    url = "http://localhost:8080/api/users";
+                    System.out.println("Headers: Content-Type: application/json");
+                    headers = "Content-Type: application/json";
+                    System.out.print("ID: ");
+                    id = scanner.nextInt();
+                    controller = new ControllerUser("DELETE", url, headers, "", id);
+                    System.out.println("--------------------------");
+                    System.out.println(controller.toString());
+                    break;
+                case 4:
+                    scanner.nextLine(); // Consumir la nueva línea pendiente
+                    System.out.println("URL: http://localhost:8080/api/users");
+                    url = "http://localhost:8080/api/users";
+                    System.out.println("Headers: Content-Type: application/json");
+                    headers = "Content-Type: application/json";
+                    System.out.print("ID: ");
+                    id = scanner.nextInt();
+                    controller = new ControllerUser("GET", url, headers,"", id);
+                    System.out.println("--------------------------");
+                    System.out.println(controller.toString());
+                    break;
+                case 5:
+                    scanner.nextLine(); // Consumir la nueva línea pendiente
+                    System.out.println("URL: http://localhost:8080/api/users");
+                    url = "http://localhost:8080/api/users";
+                    System.out.println("Headers: Content-Type: application/json");
+                    headers = "Content-Type: application/json";
+                    controller = new ControllerUser("GETALL", url, headers, "");
+                    System.out.println("--------------------------");
+                    System.out.println(controller.toString());
+                    break;
+                case 6:
                     System.out.println("Saliendo del programa.");
                     scanner.close();
                     System.exit(0);
