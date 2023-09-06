@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 //https://www.adictosaltrabajo.com/2012/09/17/gson-java-json/
 //https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+//https://www.javacodeexamples.com/gson-convert-json-to-a-typed-arraylist/14925
 //https://www.lawebdelprogramador.com/foros/Java/826495-Obtener-ruta-de-ejecucion.html
 public class Main {
     public static void main(String[] args) {
