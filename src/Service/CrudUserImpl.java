@@ -21,10 +21,11 @@ public class CrudUserImpl implements CrudUser {
             user = new User(0, "", "", "");
             String ruta = System.getProperty("user.dir") + "/dbusuarios.txt";
             File file = new File(ruta);
-            if (file.exists()){
+            if (file.exists()) {
                 String content = new String(Files.readAllBytes(Paths.get(ruta)));
                 if (!content.isEmpty()) {
-                    TypeToken<ArrayList<User>> typeListUser = new TypeToken<ArrayList<User>>() {};
+                    TypeToken<ArrayList<User>> typeListUser = new TypeToken<ArrayList<User>>() {
+                    };
                     users = new Gson().fromJson(content, typeListUser);
                 }
             }
@@ -74,12 +75,14 @@ public class CrudUserImpl implements CrudUser {
 
     @Override
     public void updateById(String body, int id) {
+        boolean encontrado=false;
         if (users.stream().count() == 0) {
             System.out.println("No hay usuarios registrados en el sistema.");
             return;
         }
         for (int i = 0; i < users.stream().count(); i++) {
             if (users.get(i).getId() == id) {
+                encontrado=true;
                 users.set(i, new User(id, body.split(",")[0], body.split(",")[1], body.split(",")[2]));
                 try {
                     Gson gson = new Gson();
@@ -102,20 +105,22 @@ public class CrudUserImpl implements CrudUser {
                     e.printStackTrace();
                 }
             }
-            /*else {
-                System.out.println("El usuario que desea actualizar no existe");
-            }*/
+        }
+        if (!encontrado) {
+            System.out.println("El usuario que desea buscar no existe");
         }
     }
 
     @Override
     public void deleteById(int id) {
+        boolean encontrado = false;
         if (users.stream().count() == 0) {
             System.out.println("No hay usuarios registrados en el sistema.");
             return;
         }
         for (int i = 0; i < users.stream().count(); i++) {
             if (users.get(i).getId() == id) {
+                encontrado=true;
                 users.remove(i);
                 try {
                     Gson gson = new Gson();
@@ -138,9 +143,9 @@ public class CrudUserImpl implements CrudUser {
                     e.printStackTrace();
                 }
             }
-           /* else {
-                System.out.println("El usuario que desea eliminar no existe");
-            }*/
+        }
+        if (!encontrado) {
+            System.out.println("El usuario que desea buscar no existe");
         }
     }
 
@@ -157,12 +162,14 @@ public class CrudUserImpl implements CrudUser {
 
     @Override
     public void findById(int id) {
+        boolean encontrado = false;
         if (users.stream().count() == 0) {
             System.out.println("No hay usuarios registrados en el sistema.");
             return;
         }
         for (int i = 0; i < users.stream().count(); i++) {
             if (users.get(i).getId() == id) {
+                encontrado = true;
                 Gson gson = new Gson();
                 // convert your list to json
                 //String jsonList = gson.toJson(users.get(i));
@@ -171,9 +178,10 @@ public class CrudUserImpl implements CrudUser {
                 // print your generated json
                 System.out.println("El usuario encontrado: " + jsonList);
             }
-            /*else {
-                System.out.println("El usuario que desea buscar no existe");
-            }*/
+
+        }
+        if (!encontrado) {
+            System.out.println("El usuario que desea buscar no existe");
         }
     }
 }

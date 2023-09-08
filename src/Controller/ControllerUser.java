@@ -38,9 +38,6 @@ public class ControllerUser {
         this.id = id;
         this.user = new CrudUserImpl(); // Inicialización del CRUD de usuarios
         switch (method.toLowerCase()) {
-            case "post":
-                System.out.println(PostUser(body));
-                break;
             case "put":
                 PutUserId(body, id);
                 break;
@@ -49,9 +46,6 @@ public class ControllerUser {
                 break;
             case "get":
                 GetUsersById(id);
-                break;
-            case "printusers":
-                GetUsers();
                 break;
         }
     }

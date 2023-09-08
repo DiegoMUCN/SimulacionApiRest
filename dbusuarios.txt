@@ -1,1 +1,1 @@
-[{"id":1,"names":"Diego","email":"Diego@marulanda","phone":"1234"}]
+[{"id":1,"names":"Valentina","email":"valentina@gmail.com","phone":"12345"},{"id":3,"names":"juan","email":"juan@gmail.com","phone":"9345"},{"id":4,"names":"Diego","email":"diego@hotmail.com","phone":"11223344"}]
