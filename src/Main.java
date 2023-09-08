@@ -10,12 +10,12 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String url="";
-        String headers="";
-        String nombres="";
-        String email="";
-        String telefono="";
-        int id=0;
+        String url = "";
+        String headers = "";
+        String nombres = "";
+        String email = "";
+        String telefono = "";
+        int id = 0;
         ControllerUser controller = null;
 
         while (true) {
@@ -40,9 +40,13 @@ public class Main {
                     email = scanner.nextLine();
                     System.out.print("Body: Teléfono: ");
                     telefono = scanner.nextLine();
-                    controller = new ControllerUser("POST", url, headers, nombres+","+email+","+telefono);
+                    if (!url.isEmpty()) {
+                    controller = new ControllerUser("POST", url, headers, nombres + "," + email + "," + telefono);
                     System.out.println("--------------------------");
                     System.out.println(controller.toString());
+                    } else {
+                        System.out.println("La cadena de conexión al servidor no se ha especificado.");
+                    }
                     break;
                 case 2:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -58,9 +62,13 @@ public class Main {
                     telefono = scanner.nextLine();
                     System.out.print("ID: ");
                     id = scanner.nextInt();
-                    controller = new ControllerUser("PUT", url, headers, nombres+","+email+","+telefono, id);
-                    System.out.println("--------------------------");
-                    System.out.println(controller.toString());
+                    if (!url.isEmpty()) {
+                        controller = new ControllerUser("PUT", url, headers, nombres + "," + email + "," + telefono, id);
+                        System.out.println("--------------------------");
+                        System.out.println(controller.toString());
+                    } else {
+                        System.out.println("La cadena de conexión al servidor no se ha especificado.");
+                    }
                     break;
                 case 3:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -70,9 +78,13 @@ public class Main {
                     headers = "Content-Type: application/json";
                     System.out.print("ID: ");
                     id = scanner.nextInt();
-                    controller = new ControllerUser("DELETE", url, headers, "", id);
-                    System.out.println("--------------------------");
-                    System.out.println(controller.toString());
+                    if (!url.isEmpty()) {
+                        controller = new ControllerUser("DELETE", url, headers, "", id);
+                        System.out.println("--------------------------");
+                        System.out.println(controller.toString());
+                    } else {
+                        System.out.println("La cadena de conexión al servidor no se ha especificado.");
+                    }
                     break;
                 case 4:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -82,9 +94,13 @@ public class Main {
                     headers = "Content-Type: application/json";
                     System.out.print("ID: ");
                     id = scanner.nextInt();
-                    controller = new ControllerUser("GET", url, headers,"", id);
+                    if (!url.isEmpty()) {
+                    controller = new ControllerUser("GET", url, headers, "", id);
                     System.out.println("--------------------------");
                     System.out.println(controller.toString());
+                    } else {
+                        System.out.println("La cadena de conexión al servidor no se ha especificado.");
+                    }
                     break;
                 case 5:
                     scanner.nextLine(); // Consumir la nueva línea pendiente
@@ -92,9 +108,13 @@ public class Main {
                     url = "http://localhost:8080/api/users";
                     System.out.println("Headers: Content-Type: application/json");
                     headers = "Content-Type: application/json";
+                    if (!url.isEmpty()) {
                     controller = new ControllerUser("GETALL", url, headers, "");
                     System.out.println("--------------------------");
                     System.out.println(controller.toString());
+                    } else {
+                        System.out.println("La cadena de conexión al servidor no se ha especificado.");
+                    }
                     break;
                 case 6:
                     System.out.println("Saliendo del programa.");

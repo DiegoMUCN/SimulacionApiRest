@@ -101,9 +101,10 @@ public class CrudUserImpl implements CrudUser {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                System.out.println("El usuario que desea actualizar no existe");
             }
+            /*else {
+                System.out.println("El usuario que desea actualizar no existe");
+            }*/
         }
     }
 
@@ -136,9 +137,10 @@ public class CrudUserImpl implements CrudUser {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else {
-                System.out.println("El usuario que desea eliminar no existe");
             }
+           /* else {
+                System.out.println("El usuario que desea eliminar no existe");
+            }*/
         }
     }
 
@@ -168,9 +170,10 @@ public class CrudUserImpl implements CrudUser {
                 final String jsonList = prettyGson.toJson(users.get(i));
                 // print your generated json
                 System.out.println("El usuario encontrado: " + jsonList);
-            } else {
-                System.out.println("El usuario que desea buscar no existe");
             }
+            /*else {
+                System.out.println("El usuario que desea buscar no existe");
+            }*/
         }
     }
 }
